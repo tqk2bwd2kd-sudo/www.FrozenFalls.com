@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frozen Falls Water Park</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+/* ======================
+   BODY / BACKGROUND
+====================== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: linear-gradient(to bottom, rgba(173,216,230,0.7), #0077be 80%);
+}
+
+/* ======================
+   BUBBLES
+====================== */
+.bubble {
+  position: fixed;
+  bottom: -60px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  animation: rise linear infinite;
+  z-index: 0;
+}
+
+@keyframes rise {
+  from { transform: translateY(0); opacity: 0.7; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* ======================
+   NAVBAR
+====================== */
+nav {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #0d47a1, #1976d2);
+  padding: 10px 30px;
+  z-index: 1000;
+}
+
+nav img {
+  height: 130px;
+  width: auto;
+}
+
+nav h1 {
+  color: white;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.9em;
+  margin-left: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #ffeb3b;
+}
+
+/* ======================
+   SECTIONS
+====================== */
+section {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 40px 20px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ======================
+   IMAGES (SAME WIDTH)
+====================== */
+section img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-top: 20px;
+  display: block;
+}
+
+/* ======================
+   HEADINGS
+====================== */
+h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2em;
+}
+
+/* ======================
+   CARDS
+====================== */
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 20px;
+  border-radius: 16px;
+  margin: 15px 0;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* ======================
+   DROPDOWN DETAILS
+====================== */
+.details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
+  background: #fff3e0;
+  border-radius: 12px;
+}
+
+.details.show {
+  max-height: 300px;
+  padding: 15px;
+}
+
+/* ======================
+   BUY BUTTON
+====================== */
+.buy-button {
+  display: block;
+  margin: 40px auto 0;
+  background: #ffeb3b;
+  color: #0d47a1;
+  font-family: 'Pacifico', cursive;
+  padding: 16px 30px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+.buy-button:hover {
+  transform: scale(1.05);
+}
+
+/* ======================
+   TOAST
+====================== */
+.toast {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffeb3b;
+  color: #0d47a1;
+  padding: 14px 26px;
+  border-radius: 14px;
+  font-family: 'Pacifico', cursive;
+  z-index: 9999;
+}
+
+/* ======================
+   CHECKOUT POPUP
+====================== */
+.checkout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+}
+
+.checkout-box {
+  background: #e3f2fd;
+  border-radius: 18px;
+  padding: 30px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: popUp 0.4s ease;
+}
+
+@keyframes popUp {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.checkout-box h3 {
+  font-family: 'Pacifico', cursive;
+  color: #0d47a1;
+}
+
+.checkout-box input,
+.checkout-box select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.checkout-box button {
+  background: #ffeb3b;
+  color: #0d47a1;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-family: 'Pacifico', cursive;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <img src="images/logo.png" alt="Frozen Falls Logo">
+  <h1>Frozen Falls Water Park</h1>
+  <div>
+    <a onclick="scrollToSection('home')">Home</a>
+    <a onclick="scrollToSection('attractions')">Attractions</a>
+    <a onclick="scrollToSection('dining')">Dining</a>
+    <a onclick="scrollToSection('tickets')">Tickets</a>
+  </div>
+</nav>
+
+<section id="home">
+  <h2>Welcome to Frozen Falls</h2>
+  <p>Minnesota’s coolest water park adventure.</p>
+  <img src="images/frozen-falls-waterfall.png">
+</section>
+
+<section id="attractions">
+  <h2>Attractions</h2>
+  <div class="card" onclick="toggleDetails('thrill')">Thrill Slides</div>
+  <div id="thrill" class="details">Fast drops and icy turns!</div>
+
+  <div class="card" onclick="toggleDetails('lazy')">Lazy River</div>
+  <div id="lazy" class="details">Relax and float.</div>
+
+  <div class="card" onclick="toggleDetails('wave')">Wave Pool</div>
+  <div id="wave" class="details">Big waves, big fun!</div>
+
+  <img src="images/frozen-falls-wave-pool.png">
+</section>
+
+<section id="dining">
+  <h2>Cascade Café</h2>
+  <div class="card" onclick="toggleDetails('cafe')">View Menu</div>
+  <div id="cafe" class="details">Burgers, snacks, drinks, and treats.</div>
+  <img src="images/cascade-cafe.png">
+</section>
+
+<section id="tickets">
+  <h2>Tickets</h2>
+
+  <div class="card" onclick="toggleDetails('day')">Single Day Pass</div>
+  <div id="day" class="details">$50 – All attractions included.</div>
+
+  <div class="card" onclick="toggleDetails('family')">Family Pack</div>
+  <div id="family" class="details">$180 – Up to 4 guests.</div>
+
+  <div class="card" onclick="toggleDetails('season')">Season Pass</div>
+  <div id="season" class="details">$300 – Unlimited visits all summer long. Best value!</div>
+
+  <button class="buy-button" onclick="openCheckout()">Buy Tickets Now</button>
+</section>
+
+<footer>
+  © 2026 Frozen Falls Water Park | Fictional Website
+</footer>
+
+<!-- CHECKOUT POPUP -->
+<div class="checkout-overlay" id="checkout">
+  <div class="checkout-box">
+    <h3>Frozen Falls Checkout</h3>
+    <select id="ticketType" onchange="updateTotal()">
+      <option value="50">Single Day Pass - $50</option>
+      <option value="180">Family Pack - $180</option>
+      <option value="300">Season Pass - $300</option>
+    </select>
+    <input type="number" id="ticketQty" min="1" value="1" oninput="updateTotal()">
+
+    <p id="totalPrice" style="font-weight:bold; margin:15px 0; font-family: 'Pacifico', cursive;">Total: $50</p>
+
+    <input type="text" placeholder="Name">
+    <input type="email" placeholder="Email">
+
+    <button onclick="completeCheckout()">Place Order</button>
+  </div>
+</div>
+
+<script>
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleDetails(id) {
+  document.getElementById(id).classList.toggle('show');
+}
+
+function openCheckout() {
+  document.getElementById('checkout').style.display = 'flex';
+  updateTotal();
+}
+
+function completeCheckout() {
+  document.getElementById('checkout').style.display = 'none';
+  showToast();
+}
+
+function showToast() {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = "This isn't a real website, silly!";
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2500);
+}
+
+/* UPDATE TOTAL PRICE */
+function updateTotal() {
+  const price = parseInt(document.getElementById('ticketType').value);
+  const qty = parseInt(document.getElementById('ticketQty').value);
+  const total = price * qty;
+  document.getElementById('totalPrice').textContent = `Total: $${total}`;
+}
+
+/* BUBBLES */
+for (let i = 0; i < 25; i++) {
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  const size = Math.random() * 20 + 10;
+  b.style.width = size + 'px';
+  b.style.height = size + 'px';
+  b.style.left = Math.random() * 100 + 'vw';
+  b.style.animationDuration = (5 + Math.random() * 8) + 's';
+  document.body.appendChild(b);
+}
+</script>
+
+</body>
+</html>
